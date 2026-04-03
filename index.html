@@ -37,6 +37,19 @@ nav{position:sticky;top:0;z-index:200;height:66px;background:var(--white);border
 .nav-call{background:var(--red);color:white;padding:9px 20px;border-radius:8px;font-size:0.875rem;font-weight:600;text-decoration:none;transition:background 0.2s;display:flex;align-items:center;gap:7px;}
 .nav-call:hover{background:var(--red-d);}
 
+/* Mobile Menu Button */
+.mobile-menu-btn{display:none;flex-direction:column;justify-content:center;align-items:center;width:44px;height:44px;background:transparent;border:none;cursor:pointer;padding:8px;gap:5px;z-index:210;}
+.mobile-menu-btn span{display:block;width:24px;height:2px;background:var(--red);border-radius:2px;transition:transform 0.3s,opacity 0.3s;}
+.mobile-menu-btn.active span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.mobile-menu-btn.active span:nth-child(2){opacity:0;}
+.mobile-menu-btn.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+/* Mobile Nav Overlay */
+.mobile-nav{position:fixed;top:60px;left:0;right:0;bottom:0;background:rgba(255,253,248,0.98);backdrop-filter:blur(10px);z-index:199;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:40px;gap:24px;opacity:0;visibility:hidden;transition:opacity 0.3s,visibility 0.3s;}
+.mobile-nav.active{opacity:1;visibility:visible;}
+.mobile-nav a{font-size:1.2rem;font-weight:600;color:var(--text);text-decoration:none;padding:12px 24px;border-radius:8px;transition:background 0.2s;color:var(--dark);}
+.mobile-nav a:hover{background:var(--red-bg);color:var(--red);}
+
 /* HERO */
 .hero{background:linear-gradient(140deg,#1A0500 0%,#3B1000 55%,#1A0500 100%);min-height:92vh;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:80px 52px;position:relative;overflow:hidden;}
 .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 15% 60%,rgba(200,25,10,0.22) 0%,transparent 55%),radial-gradient(ellipse at 85% 25%,rgba(212,160,23,0.12) 0%,transparent 45%);pointer-events:none;}
@@ -204,20 +217,133 @@ footer{background:#0F0300;padding:44px 52px 26px;}
 .wa-fab{position:fixed;bottom:24px;right:24px;z-index:300;width:56px;height:56px;border-radius:50%;background:#25D366;color:white;display:flex;align-items:center;justify-content:center;font-size:1.6rem;box-shadow:0 4px 18px rgba(37,211,102,0.42);text-decoration:none;transition:transform 0.2s,box-shadow 0.2s;}
 .wa-fab:hover{transform:scale(1.10);box-shadow:0 8px 28px rgba(37,211,102,0.55);}
 
-/* RESPONSIVE */
-@media(max-width:960px){
-  nav{padding:0 22px;} .nav-links,.nav-delivery{display:none;}
-  .hero{grid-template-columns:1fr;padding:56px 22px;min-height:auto;gap:32px;}
-  .section{padding:60px 22px;} .trust-grid{grid-template-columns:1fr 1fr;}
-  .items-grid{grid-template-columns:1fr 1fr;} .puri-grid{grid-template-columns:1fr 1fr;}
-  .gallery-grid{grid-template-columns:1fr 1fr;} .loc-grid{grid-template-columns:1fr;}
-  .cta{padding:44px 22px;} footer{padding:38px 22px 22px;}
-  .hcards{grid-template-columns:1fr;}
+/* RESPONSIVE - MOBILE FIRST */
+@media(max-width:1100px){
+  .items-grid{grid-template-columns:repeat(2,1fr);}
+  .puri-grid{grid-template-columns:repeat(3,1fr);}
 }
-@media(max-width:600px){
-  .items-grid{grid-template-columns:1fr;} .puri-grid{grid-template-columns:1fr 1fr;}
-  .gallery-grid{grid-template-columns:1fr 1fr;} .hero-title{font-size:2.3rem;}
-  .cta-btns{width:100%;} .trust-grid{grid-template-columns:1fr 1fr;}
+
+@media(max-width:960px){
+  /* Navigation */
+  nav{padding:0 20px;height:60px;}
+  .nav-links{display:none;}
+  .nav-call{padding:8px 16px;font-size:0.80rem;}
+  .nav-call span{display:none;}
+  .nav-name{font-size:1rem;}
+  .nav-since{font-size:0.65rem;}
+  .del-badge{display:none;}
+  
+  /* Mobile Menu Toggle */
+  .mobile-menu-btn{display:flex;}
+  
+  /* Hero */
+  .hero{grid-template-columns:1fr;padding:40px 20px;min-height:auto;gap:32px;}
+  .hero-left{text-align:center;}
+  .hero-title{font-size:clamp(1.9rem,8vw,2.8rem);}
+  .hero-telugu{font-size:1.1rem;}
+  .hero-desc{font-size:0.95rem;max-width:100%;}
+  .hero-btns{justify-content:center;}
+  .hero-apps{justify-content:center;flex-wrap:wrap;}
+  .shop-photo img{height:220px;}
+  
+  /* Sections */
+  .section{padding:50px 20px;}
+  .sh{font-size:clamp(1.6rem,6vw,2.2rem);}
+  .ssub{font-size:0.90rem;}
+  
+  /* Grids */
+  .trust-grid{grid-template-columns:repeat(2,1fr);gap:16px;margin-top:36px;}
+  .tcard{padding:22px 16px;}
+  .tcard-icon{font-size:2rem;}
+  
+  .items-grid{grid-template-columns:repeat(2,1fr);gap:16px;}
+  .item-card.has-img .item-img{height:150px;}
+  
+  .puri-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
+  
+  .gallery-grid{grid-template-columns:repeat(2,1fr);gap:12px;margin-top:36px;}
+  .gbox{aspect-ratio:3/2;}
+  
+  .loc-grid{grid-template-columns:1fr;gap:32px;}
+  .mapbox{height:300px;}
+  
+  .hcards{grid-template-columns:1fr;}
+  
+  /* CTA */
+  .cta{padding:36px 20px;flex-direction:column;text-align:center;gap:24px;}
+  .cta h2{max-width:100%;font-size:clamp(1.4rem,5vw,2rem);}
+  .cta-btns{width:100%;justify-content:center;}
+  
+  /* Footer */
+  footer{padding:32px 20px 20px;}
+  .ft-row{flex-direction:column;text-align:center;gap:20px;}
+  .ft-links{flex-wrap:wrap;justify-content:center;gap:20px;}
+  .ft-bottom{flex-direction:column;text-align:center;gap:8px;}
+}
+
+@media(max-width:640px){
+  .hero-title{font-size:1.8rem;}
+  .hero-telugu{font-size:1rem;}
+  .hero-btns{flex-direction:column;width:100%;}
+  .hero-btns a{width:100%;justify-content:center;}
+  
+  .trust-grid{grid-template-columns:1fr;}
+  
+  .menu-tabs{gap:6px;overflow-x:auto;flex-wrap:nowrap;padding-bottom:8px;-webkit-overflow-scrolling:touch;}
+  .menu-tabs::-webkit-scrollbar{display:none;}
+  .mtab{padding:10px 18px;font-size:0.75rem;white-space:nowrap;flex-shrink:0;}
+  
+  /* Mobile: 2 items per row like food delivery apps */
+  .items-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
+  .item-card.has-img .item-img{height:120px;}
+  .item-card .item-top{height:44px;padding:0 12px;}
+  .item-card .item-name{font-size:0.80rem;}
+  .item-body{padding:10px 12px;}
+  .price-eat{font-size:1rem;}
+  .price-eat small{font-size:0.55rem;}
+  .price-parcel{font-size:0.85rem;}
+  .price-parcel small{font-size:0.55rem;}
+  .parcel-sep{display:none;}
+  
+  .puri-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
+  .puri-top{height:40px;padding:0 10px;}
+  .puri-name{font-size:0.75rem;}
+  .puri-body{padding:10px 12px;}
+  .p-eat{font-size:0.90rem;}
+  .p-parcel{font-size:0.78rem;}
+  
+  .gallery-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
+  .gbox{aspect-ratio:1/1;}
+  .gbox-label{font-size:0.75rem;padding:20px 10px 10px;}
+  
+  .cta-btns{flex-direction:column;width:100%;}
+  .cta-btns a{width:100%;justify-content:center;}
+  
+  .wa-fab{width:50px;height:50px;font-size:1.4rem;bottom:16px;right:16px;}
+}
+
+@media(max-width:380px){
+  .nav-icon{width:36px;height:36px;font-size:1.1rem;}
+  .nav-name{font-size:0.90rem;}
+  .hero-title{font-size:1.6rem;}
+  .shop-photo img{height:180px;}
+  .price-eat{font-size:1rem;}
+  .price-parcel{font-size:0.90rem;}
+}
+
+/* Touch device optimizations */
+@media(hover:none){
+  .item-card:hover,.tcard:hover,.puri-card:hover{transform:none;}
+  .btn-red:hover,.btn-ghost:hover,.btn-white:hover,.btn-woutline:hover{transform:none;}
+  
+  /* Mobile app tap feedback */
+  .item-card:active,.puri-card:active{transform:scale(0.98);}
+  .mtab:active{transform:scale(0.95);}
+}
+
+/* Reduced motion */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important;}
 }
 </style>
 </head>
@@ -244,9 +370,21 @@ footer{background:#0F0300;padding:44px 52px 26px;}
   <div class="nav-right">
     <span class="del-badge">🛵 Zomato</span>
     <span class="del-badge">🛵 Swiggy</span>
-    <a href="tel:+918919591321" class="nav-call">📞 89195 91321</a>
+    <a href="tel:+918919591321" class="nav-call"><span>📞</span> 89195 91321</a>
+    <button class="mobile-menu-btn" aria-label="Toggle menu" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<!-- Mobile Nav Overlay -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#menu" onclick="toggleMobileMenu()">Menu &amp; Prices</a>
+  <a href="#about" onclick="toggleMobileMenu()">About</a>
+  <a href="#gallery" onclick="toggleMobileMenu()">Gallery</a>
+  <a href="#location" onclick="toggleMobileMenu()">Location</a>
+  <a href="tel:+918919591321" onclick="toggleMobileMenu()">📞 Call Us</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -586,6 +724,14 @@ footer{background:#0F0300;padding:44px 52px 26px;}
 <a href="https://wa.me/918919591321" target="_blank" class="wa-fab" title="Chat on WhatsApp">💬</a>
 
 <script>
+function toggleMobileMenu(){
+  const btn=document.querySelector('.mobile-menu-btn');
+  const nav=document.getElementById('mobileNav');
+  btn.classList.toggle('active');
+  nav.classList.toggle('active');
+  document.body.style.overflow=nav.classList.contains('active')?'hidden':'';
+}
+
 function showTab(name,btn){
   document.querySelectorAll('.menu-panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.mtab').forEach(b=>b.classList.remove('active'));
